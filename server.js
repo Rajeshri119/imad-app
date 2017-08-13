@@ -10,8 +10,64 @@ app.get('/', function (req, res) {
 });
 
 app.get('/article-one',function(req,res){
-    res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
+    res.send(createTemplate(articleone));
 });
+var articleone={
+    title:'Article one I rajeshri nair',
+    heading:'Article one',
+    date:'August 13',
+    content:`  <p>
+           This is content of article one.This is content of article one .This is content of article one  .
+           This is content of article one  .This is content of article one  .This is content of article one  .
+           This is content of article one
+        </p>
+         <p>
+           This is content of article one.This is content of article one .This is content of article one  .
+           This is content of article one  .This is content of article one  .This is content of article one  .
+           This is content of article one
+        </p>
+         <p>
+           This is content of article one.This is content of article one .This is content of article one  .
+           This is content of article one  .This is content of article one  .This is content of article one  .
+           This is content of article one
+        </p>`
+}
+function createTemplate(data){
+    var title=data.title;
+    var heading=data.heading;
+    var date=data.date;
+    var content=data.content;
+var htmlTemplate=`<html
+    <head>
+    <title>
+        <h1> ${title}</h1>
+    </title>
+    <meta name="viewport" content="width-device-width,initial-scale-1">
+   <link href="/ui/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div>
+    <a href="/">home</a>
+    </div>
+    <div>
+        <h3>
+            ${heading}
+        </h3>
+    </div>
+    <div>
+       ${date}
+    </div>
+    <div>
+ ${content}
+    </div>
+    </div>
+</body>
+</html>
+    `;
+    return htmlTemplate;
+}
+
 app.get('/article-two',function(req,res){
     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
 });
