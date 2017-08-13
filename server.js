@@ -9,9 +9,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-
-var articleone={
-    title:'Article one I rajeshri nair',
+var articles={
+    'article-one':{ title:'Article one I rajeshri nair',
     heading:'Article one',
     date:'August 13',
     content:`  <p>
@@ -28,8 +27,19 @@ var articleone={
            This is content of article one.This is content of article one .This is content of article one  .
            This is content of article one  .This is content of article one  .This is content of article one  .
            This is content of article one
-        </p>`
-}
+        </p>`},
+    'article-two':{title:'Article two I rajeshri nair',
+    heading:'Article two',
+    date:'August 15',
+    content:`  <p>
+           This is content of article two</p>`},
+    'article-three':{title:'Article three I rajeshri nair',
+    heading:'Article three',
+    date:'August 18',
+    content:`  <p>
+           This is content of article three.`}
+};
+
 function createTemplate(data){
     var title=data.title;
     var heading=data.heading;
@@ -65,8 +75,9 @@ var htmlTemplate=`<html
     `;
     return htmlTemplate;
 }
-app.get('/article-one',function(req,res){
-    res.send(createTemplate(articleone));
+app.get('/:articleName',function(req,res){
+    var articleName=req.params.articleName;
+    res.send(createTemplate(aticles[articleName]));
 });
 app.get('/article-two',function(req,res){
     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
