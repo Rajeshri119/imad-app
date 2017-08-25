@@ -5,27 +5,7 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 var pool=require('pg').pool;
-var config={
-    user:'rajeshri119',
-    database:'rajeshri119',
-    host:'db.imad.hasura-app.io',
-    port:'5432',
-    password:process.env.DB_PASSWORD
-    
-};
-var pool=new Pool(config);
-app.get('/test-db',function(req,res){
-    pool.query('SELECT * FROM test',function(err,result){
-        if(err)
-        {
-            res.status(500).send(err.toString());
-        }
-        else
-        {
-            res.send(JSON.stringyfy(result));
-        }
-    });
-});
+
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
@@ -99,6 +79,27 @@ var htmlTemplate=`<html
 app.get('/:articleName',function(req,res){
     var articleName=req.params.articleName;
     res.send(createTemplate(articles[articleName]));
+});
+var config={
+    user:'rajeshri119',
+    database:'rajeshri119',
+    host:'db.imad.hasura-app.io',
+    port:'5432',
+    password:process.env.DB_PASSWORD
+    
+};
+var pool=new Pool(config);
+app.get('/test-db',function(req,res){
+    pool.query('SELECT * FROM test',function(err,result){
+        if(err)
+        {
+            res.status(500).send(err.toString());
+        }
+        else
+        {
+            res.send(JSON.stringyfy(result));
+        }
+    });
 });
 app.get('/article-two',function(req,res){
     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
