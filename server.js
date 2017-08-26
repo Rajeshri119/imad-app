@@ -6,9 +6,6 @@ var app = express();
 app.use(morgan('combined'));
 var Pool=require('pg').Pool;
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
-});
 
 var articles={
     'article-one':{ title:'Article one I rajeshri nair',
@@ -80,6 +77,10 @@ app.get('/:articleName',function(req,res){
     var articleName=req.params.articleName;
     res.send(createTemplate(articles[articleName]));
 });
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+
 var config={
     user:'rajeshri119',
     database:'rajeshri119',
