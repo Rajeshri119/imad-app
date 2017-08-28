@@ -123,7 +123,8 @@ app.post('/create-user',function(req,res){
            res.status(403).send('username/password is invalid');
             }
         }
-        });
+        }
+});
 });
 app.post('/login',function(req,res){
     var username=req.body.username;
