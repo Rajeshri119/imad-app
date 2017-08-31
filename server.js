@@ -138,7 +138,22 @@ app.post('/login',function(req,res){
         }
         else
         {
-            res.send("User sucessfully created"+username);
+           if(result.rows.length===0)
+            {
+                res.status(403).send('username/password is invalid');
+            }
+            else
+            {
+            var dbString=result.rows[0].password;
+            var salt=dbString().split('$')[2];
+            var hashedPassword=hash(password,salt);
+            if(hashedPassword===dbString){
+                res.send('Credentials correct');
+            }else
+            {
+           res.status(403).send('username/password is invalid');
+            }
+        }
         }
         });
 });
